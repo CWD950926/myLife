@@ -39,7 +39,7 @@ public class Update${entity}Req implements Serializable {
 </#if>
 <#-- ----------  BEGIN 字段循环遍历  ---------->
 <#list table.fields as field>
-	<#if field.propertyName =='tenancyId' || field.propertyName =='createdBy' || field.propertyName =='createdTime'|| field.propertyName =='updatedBy'|| field.propertyName =='updatedTime'>
+	<#if field.propertyName =='createdBy' || field.propertyName =='createdTime'|| field.propertyName =='updatedBy'|| field.propertyName =='updatedTime'>
 
 <#else>
     <#if field.keyFlag>

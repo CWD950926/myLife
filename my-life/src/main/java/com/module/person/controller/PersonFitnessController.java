@@ -14,12 +14,12 @@ import org.springframework.beans.factory.annotation.Autowired;
  * 健身计划 http api 入口
  *
  * @author generator
- * @since 2023-01-10
+ * @since 2023-01-30
  */
 @Api(tags = {"健身计划"})
 @CrossOrigin(allowCredentials = "true")
 @RestController
-@RequestMapping("/scrm/v1/person-fitness")
+@RequestMapping("/life/v1/person-fitness")
 public class PersonFitnessController {
 
     @Autowired
@@ -30,45 +30,33 @@ public class PersonFitnessController {
     @ApiOperation(value = "新增健身计划")
     @PostMapping("/m/add")
     public ResponseResult<PersonFitness> add(@RequestHeader(name = "userId", required = false) Long userId,
-                                         @RequestHeader(name = "tenancyId", required = true) Long tenancyId,
                                          @RequestBody AddPersonFitnessReq req){
-        return personFitnessService.add(tenancyId,userId,req);
+        return personFitnessService.add(userId,req);
     }
 
 
     @ApiOperation(value = "删除健身计划")
     //@GetMapping("/m/del")
     public ResponseResult delete(@RequestHeader(name = "userId", required = false) Long userId,
-                                 @RequestHeader(name = "tenancyId", required = true) Long tenancyId,
                                  @ApiParam("健身计划ID") @RequestParam Long id){
-        return personFitnessService.delete(tenancyId,id);
+        return personFitnessService.delete(id);
     }
 
 
     @ApiOperation(value = "更新健身计划")
     @PostMapping("/m/update")
     public ResponseResult update(@RequestHeader(name = "userId", required = false) Long userId,
-                                 @RequestHeader(name = "tenancyId", required = true) Long tenancyId,
                                  @RequestBody UpdatePersonFitnessReq req){
-        return personFitnessService.updateData(tenancyId,userId,req);
+        return personFitnessService.updateData(userId,req);
     }
 
-    @ApiOperation(value = "查询健身计划分页数据")
-    @PostMapping("/m/findListByPage")
-    public ResponseResult<EPage<PersonFitnessRsp>> findListByPage(@RequestHeader(name = "userId", required = false) Long userId,
-                                                           @RequestHeader(name = "tenancyId", required = true) Long tenancyId,
-                                                           @RequestParam Integer page,
-                                                           @RequestParam Integer pageCount,
-                                                           @RequestBody PersonFitnessReq req){
-         return personFitnessService.findListByPage(tenancyId,page, pageCount,req);
-    }
+
 
     @ApiOperation(value = "id查询健身计划")
     @GetMapping("/m/findById")
     public ResponseResult<PersonFitnessRsp> findById(@RequestHeader(name = "userId", required = false) Long userId,
-                                              @RequestHeader(name = "tenancyId", required = true) Long tenancyId,
-                                              @ApiParam("健身计划ID") @RequestParam Long id){
-         return personFitnessService.findById(tenancyId,id);
+                                                 @ApiParam("健身计划ID") @RequestParam Long id){
+         return personFitnessService.findById(id);
     }
 
 }

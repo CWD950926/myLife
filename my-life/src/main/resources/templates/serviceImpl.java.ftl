@@ -40,15 +40,12 @@ open class ${table.serviceImplName} : ${superServiceImplClass}<${table.mapperNam
 public class ${table.serviceImplName} extends ${superServiceImplClass}<${table.mapperName}, ${entity}> implements ${table.serviceName} {
 
     @Override
-    public ResponseResult<${entity}> add(Long tenancyId, Long userId, Add${entity}Req req){
+    public ResponseResult<${entity}> add( Long userId, Add${entity}Req req){
         Date currentDate = DateUtil.getCurrentDate();
         ${entity} po = new ${entity}();
         BeanUtils.copyProperties( req,po);
         po.setId(IdUtil.genId());
-        po.setCreatedBy(userId);
-        po.setUpdatedBy(userId);
         po.setCreatedTime(currentDate);
-        po.setUpdatedTime(currentDate);
         int effectRow = baseMapper.insert(po);
         if (effectRow > 0) {
             return ResponseResult.buildSuccess(po);
@@ -59,7 +56,7 @@ public class ${table.serviceImplName} extends ${superServiceImplClass}<${table.m
 
 
     @Override
-    public ResponseResult delete(Long tenancyId, Long id) {
+    public ResponseResult delete( Long id) {
         ${entity} po = baseMapper.selectById(id);
         if (po == null) {
             return ResponseResult.buildFail("数据不存在");
@@ -70,7 +67,7 @@ public class ${table.serviceImplName} extends ${superServiceImplClass}<${table.m
 
 
     @Override
-    public ResponseResult updateData(Long tenancyId, Long userId, Update${entity}Req req){
+    public ResponseResult updateData( Long userId, Update${entity}Req req){
         ${entity} po = baseMapper.selectById(req.getId());
         if (po == null) {
             return ResponseResult.buildFail("数据不存在");
@@ -89,30 +86,13 @@ public class ${table.serviceImplName} extends ${superServiceImplClass}<${table.m
 
 
     @Override
-    public ResponseResult<${entity}Rsp> findById(Long tenancyId,Long id){
+    public ResponseResult<${entity}Rsp> findById(Long id){
         ${entity} po = baseMapper.selectById(id);
         ${entity}Rsp rsp = getByPo(po);
         return ResponseResult.buildSuccess(rsp);
     }
 
-    @Override
-    public  ResponseResult<EPage<${entity}Rsp>> findListByPage(Long tenancyId,Integer page, Integer pageCount,${entity}Req req){
-        LambdaQueryWrapper<${entity}> queryWrapper = new LambdaQueryWrapper<>(req);
-        IPage<${entity}> wherePage = new Page<>(page, pageCount);
-        IPage<${entity}> poList = baseMapper.selectPage(wherePage, queryWrapper);
-        List<${entity}Rsp> rspList = new ArrayList<>();
-        if (poList != null) {
-            List<${entity}> list = poList.getRecords();
-            if (list!=null&&list.size()>0){
-                for (${entity} po:list){
-                    ${entity}Rsp rsp = getByPo(po);
-                    rspList.add(rsp);
-                }
-            }
-        }
-        EPage ePage = new EPage((int) wherePage.getTotal(), (int) wherePage.getPages(), (int) wherePage.getCurrent(), (int) wherePage.getSize(), rspList);
-        return ResponseResult.buildSuccess(ePage);
-    }
+
 
 
     @Override

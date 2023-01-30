@@ -4,13 +4,13 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.module.person.dao.PersonFitnessMapper;
-import com.module.person.dto.personfitness.AddPersonFitnessReq;
-import com.module.person.dto.personfitness.PersonFitnessReq;
-import com.module.person.dto.personfitness.PersonFitnessRsp;
-import com.module.person.dto.personfitness.UpdatePersonFitnessReq;
-import com.module.person.po.PersonFitness;
-import com.module.person.service.IPersonFitnessService;
+import com.module.person.dao.PersonAssetsMapper;
+import com.module.person.dto.personassets.AddPersonAssetsReq;
+import com.module.person.dto.personassets.PersonAssetsReq;
+import com.module.person.dto.personassets.PersonAssetsRsp;
+import com.module.person.dto.personassets.UpdatePersonAssetsReq;
+import com.module.person.po.PersonAssets;
+import com.module.person.service.IPersonAssetsService;
 import com.result.EPage;
 import com.result.ResponseResult;
 import com.util.DateUtil;
@@ -25,21 +25,22 @@ import java.util.List;
 
 
 /**
- * 健身计划 服务实现类
+ * 个人资产 服务实现类
  *
  * @author generator
  * @since 2023-01-30
  */
 @Slf4j
 @Service
-public class PersonFitnessServiceImpl extends ServiceImpl<PersonFitnessMapper, PersonFitness> implements IPersonFitnessService {
+public class PersonAssetsServiceImpl extends ServiceImpl<PersonAssetsMapper, PersonAssets> implements IPersonAssetsService {
 
     @Override
-    public ResponseResult<PersonFitness> add( Long userId, AddPersonFitnessReq req){
+    public ResponseResult<PersonAssets> add( Long userId, AddPersonAssetsReq req){
         Date currentDate = DateUtil.getCurrentDate();
-        PersonFitness po = new PersonFitness();
+        PersonAssets po = new PersonAssets();
         BeanUtils.copyProperties( req,po);
         po.setId(IdUtil.genId());
+        po.setCreatedTime(currentDate);
         int effectRow = baseMapper.insert(po);
         if (effectRow > 0) {
             return ResponseResult.buildSuccess(po);
@@ -51,7 +52,7 @@ public class PersonFitnessServiceImpl extends ServiceImpl<PersonFitnessMapper, P
 
     @Override
     public ResponseResult delete( Long id) {
-        PersonFitness po = baseMapper.selectById(id);
+        PersonAssets po = baseMapper.selectById(id);
         if (po == null) {
             return ResponseResult.buildFail("数据不存在");
         }
@@ -61,8 +62,8 @@ public class PersonFitnessServiceImpl extends ServiceImpl<PersonFitnessMapper, P
 
 
     @Override
-    public ResponseResult updateData( Long userId, UpdatePersonFitnessReq req){
-        PersonFitness po = baseMapper.selectById(req.getId());
+    public ResponseResult updateData(Long userId, UpdatePersonAssetsReq req){
+        PersonAssets po = baseMapper.selectById(req.getId());
         if (po == null) {
             return ResponseResult.buildFail("数据不存在");
         }
@@ -80,21 +81,26 @@ public class PersonFitnessServiceImpl extends ServiceImpl<PersonFitnessMapper, P
 
 
     @Override
-    public ResponseResult<PersonFitnessRsp> findById(Long id){
-        PersonFitness po = baseMapper.selectById(id);
-        PersonFitnessRsp rsp = getByPo(po);
+    public ResponseResult<PersonAssetsRsp> findById(Long id){
+        PersonAssets po = baseMapper.selectById(id);
+        PersonAssetsRsp rsp = getByPo(po);
         return ResponseResult.buildSuccess(rsp);
     }
 
-
+    @Override
+    public ResponseResult<List<PersonAssets>> findList() {
+        LambdaQueryWrapper<PersonAssets> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.orderByDesc(PersonAssets::getTime);
+        return ResponseResult.buildSuccess(baseMapper.selectList(queryWrapper));
+    }
 
 
     @Override
-    public PersonFitnessRsp getByPo(PersonFitness po) {
+    public PersonAssetsRsp getByPo(PersonAssets po) {
         if (po == null) {
             return null;
         }
-        PersonFitnessRsp rsp = new PersonFitnessRsp();
+        PersonAssetsRsp rsp = new PersonAssetsRsp();
         BeanUtils.copyProperties(po, rsp);
         return rsp;
     }

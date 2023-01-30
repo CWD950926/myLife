@@ -7,10 +7,7 @@ import org.joda.time.DateTime;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.ZoneOffset;
+import java.time.*;
 import java.util.*;
 
 
@@ -940,6 +937,10 @@ public class DateUtil {
 
     public static int stupidDate(LocalDate date) {
         return date.getYear() * 100_00 + date.getMonthValue() * 100 + date.getDayOfMonth();
+    }
+
+    public static LocalDate date2LocalDate(Date date) {
+        return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
     }
 
 }

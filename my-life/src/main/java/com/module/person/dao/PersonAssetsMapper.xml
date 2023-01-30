@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.module.person.dao.PersonAssetsMapper">
+
+        <!-- 通用查询映射结果 -->
+        <resultMap id="BaseResultMap" type="com.module.person.po.PersonAssets">
+                    <id column="id" property="id"/>
+                    <result column="time" property="time"/>
+                    <result column="wx" property="wx"/>
+                    <result column="alipay" property="alipay"/>
+                    <result column="construction" property="construction"/>
+                    <result column="industrial_and_commercial" property="industrialAndCommercial"/>
+                    <result column="merchants" property="merchants"/>
+                    <result column="china" property="china"/>
+                    <result column="borrow" property="borrow"/>
+                    <result column="borrow_desc" property="borrowDesc"/>
+                    <result column="created_time" property="createdTime"/>
+                    <result column="liability" property="liability"/>
+                    <result column="liability_desc" property="liabilityDesc"/>
+        </resultMap>
+
+        <!-- 通用查询结果列 -->
+        <sql id="Base_Column_List">
+            id, time, wx, alipay, construction, industrial_and_commercial, merchants, china, borrow, borrow_desc, created_time, liability, liability_desc
+        </sql>
+
+</mapper>

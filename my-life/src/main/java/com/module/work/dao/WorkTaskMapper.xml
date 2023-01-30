@@ -10,11 +10,12 @@
                     <result column="priority" property="priority"/>
                     <result column="work_process" property="workProcess"/>
                     <result column="version" property="version"/>
+                    <result column="created_time" property="createdTime"/>
         </resultMap>
 
         <!-- 通用查询结果列 -->
         <sql id="Base_Column_List">
-            id, time, task_desc, priority, work_process, version
+            id, time, task_desc, priority, work_process, version, created_time
         </sql>
 
 </mapper>

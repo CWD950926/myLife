@@ -1,7 +1,10 @@
 package com.module.work.dto.worktask;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.io.Serializable;
+import java.util.List;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -19,9 +22,6 @@ public class AddWorkTaskReq implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "时间")
-    private Date time;
-
     @ApiModelProperty(value = "工作内容")
     private String taskDesc;
 
@@ -32,8 +32,9 @@ public class AddWorkTaskReq implements Serializable {
     private String workProcess;
 
     @ApiModelProperty(value = "版本")
-    private String version;
-
+    private List<String> versions;
+    @ApiModelProperty(value = "任务时间")
+    private LocalDate time;
 
 }
 

@@ -1,4 +1,4 @@
-package com.module.config;
+package com.config;
 
 
 

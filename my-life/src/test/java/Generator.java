@@ -29,7 +29,7 @@ public class Generator {
         String tables = "person_fitness";
 
 
-        boolean isGenAll = true;//true:dto、controller、service、mapper层也生成；false:只生成po和xml
+        boolean isGenAll = false;//true:dto、controller、service、mapper层也生成；false:只生成po和xml
 
         // 代码生成器
         AutoGenerator mpg = new AutoGenerator();
@@ -150,14 +150,6 @@ public class Generator {
                 }
             });
 
-            focList.add(new FileOutConfig("/templates/exportReq.java.ftl") {
-                @Override
-                public String outputFile(TableInfo tableInfo) {
-                    setCommone(tableInfo);
-                    return projectPath + "/src/main/java/com/module/" + packageName + "/dto/" + tableInfo.getEntityName().toLowerCase() + "/" + tableInfo.getEntityName() + "Export"
-                            + StringPool.DOT_JAVA;
-                }
-            });
 
         }
 

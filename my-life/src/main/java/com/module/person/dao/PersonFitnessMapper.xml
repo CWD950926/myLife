@@ -6,14 +6,16 @@
         <resultMap id="BaseResultMap" type="com.module.person.po.PersonFitness">
                     <id column="id" property="id"/>
                     <result column="time" property="time"/>
-                    <result column="diet" property="diet"/>
+                    <result column="lunch" property="lunch"/>
+                    <result column="breakfast" property="breakfast"/>
+                    <result column="dinner" property="dinner"/>
                     <result column="exercise" property="exercise"/>
-                    <result column="version" property="version"/>
+                    <result column="weight" property="weight"/>
         </resultMap>
 
         <!-- 通用查询结果列 -->
         <sql id="Base_Column_List">
-            id, time, diet, exercise, version
+            id, time, lunch, breakfast, dinner, exercise, weight
         </sql>
 
 </mapper>

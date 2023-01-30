@@ -23,7 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 @CrossOrigin(allowCredentials = "true")
 @RestController
 </#if>
-@RequestMapping("/scrm/v1/<#if package.ModuleName??>${package.ModuleName}</#if><#if controllerMappingHyphenStyle??>${controllerMappingHyphen}<#else>${table.entityPath}</#if>")
+@RequestMapping("/life/v1/<#if package.ModuleName??>${package.ModuleName}</#if><#if controllerMappingHyphenStyle??>${controllerMappingHyphen}<#else>${table.entityPath}</#if>")
 <#if kotlin>
 class ${table.controllerName}<#if superControllerClass??>:${superControllerClass}()</#if>
 <#else>
@@ -39,45 +39,33 @@ class ${table.controllerName}<#if superControllerClass??>:${superControllerClass
     @ApiOperation(value = "新增${table.comment!}")
     @PostMapping("/m/add")
     public ResponseResult<${entity}> add(@RequestHeader(name = "userId", required = false) Long userId,
-                                         @RequestHeader(name = "tenancyId", required = true) Long tenancyId,
                                          @RequestBody Add${entity}Req req){
-        return ${(table.serviceName?substring(1))?uncap_first}.add(tenancyId,userId,req);
+        return ${(table.serviceName?substring(1))?uncap_first}.add(userId,req);
     }
 
 
     @ApiOperation(value = "删除${table.comment!}")
     //@GetMapping("/m/del")
     public ResponseResult delete(@RequestHeader(name = "userId", required = false) Long userId,
-                                 @RequestHeader(name = "tenancyId", required = true) Long tenancyId,
                                  @ApiParam("${table.comment!}ID") @RequestParam Long id){
-        return ${(table.serviceName?substring(1))?uncap_first}.delete(tenancyId,id);
+        return ${(table.serviceName?substring(1))?uncap_first}.delete(id);
     }
 
 
     @ApiOperation(value = "更新${table.comment!}")
     @PostMapping("/m/update")
     public ResponseResult update(@RequestHeader(name = "userId", required = false) Long userId,
-                                 @RequestHeader(name = "tenancyId", required = true) Long tenancyId,
                                  @RequestBody Update${entity}Req req){
-        return ${(table.serviceName?substring(1))?uncap_first}.updateData(tenancyId,userId,req);
+        return ${(table.serviceName?substring(1))?uncap_first}.updateData(userId,req);
     }
 
-    @ApiOperation(value = "查询${table.comment!}分页数据")
-    @PostMapping("/m/findListByPage")
-    public ResponseResult<EPage<${entity}Rsp>> findListByPage(@RequestHeader(name = "userId", required = false) Long userId,
-                                                           @RequestHeader(name = "tenancyId", required = true) Long tenancyId,
-                                                           @RequestParam Integer page,
-                                                           @RequestParam Integer pageCount,
-                                                           @RequestBody ${entity}Req req){
-         return ${(table.serviceName?substring(1))?uncap_first}.findListByPage(tenancyId,page, pageCount,req);
-    }
+
 
     @ApiOperation(value = "id查询${table.comment!}")
     @GetMapping("/m/findById")
     public ResponseResult<${entity}Rsp> findById(@RequestHeader(name = "userId", required = false) Long userId,
-                                                 @RequestHeader(name = "tenancyId", required = true) Long tenancyId,
                                                  @ApiParam("${table.comment!}ID") @RequestParam Long id){
-         return ${(table.serviceName?substring(1))?uncap_first}.findById(tenancyId,id);
+         return ${(table.serviceName?substring(1))?uncap_first}.findById(id);
     }
 
 }
