@@ -23,10 +23,10 @@ public class Generator {
     public static void main(String[] args) {
 
         //模块名称
-        String packageName = "person";
+        String packageName = "work";
 
         //数据库表名称
-        String tables = "person_fitness";
+        String tables = "work_todo";
 
 
         boolean isGenAll = true;//true:dto、controller、service、mapper层也生成；false:只生成po和xml

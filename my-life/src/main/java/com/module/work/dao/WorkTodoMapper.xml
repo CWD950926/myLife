@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.module.work.dao.WorkTodoMapper">
+
+        <!-- 通用查询映射结果 -->
+        <resultMap id="BaseResultMap" type="com.module.work.po.WorkTodo">
+                    <id column="id" property="id"/>
+                    <result column="to_do" property="toDo"/>
+                    <result column="created_time" property="createdTime"/>
+                    <result column="type" property="type"/>
+        </resultMap>
+
+        <!-- 通用查询结果列 -->
+        <sql id="Base_Column_List">
+            id, to_do, created_time, type
+        </sql>
+
+</mapper>
