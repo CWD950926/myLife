@@ -6,12 +6,12 @@ import com.result.EPage;
 import com.module.person.dto.personfitness.*;
 import com.result.ResponseResult;
 
-
+import java.util.List;
 
 /**
  * 健身计划 服务类
  * @author generator
- * @since 2023-01-30
+ * @since 2023-01-31
  */
 public interface IPersonFitnessService extends IService<PersonFitness> {
 
@@ -49,6 +49,9 @@ public interface IPersonFitnessService extends IService<PersonFitness> {
      */
     ResponseResult<PersonFitnessRsp> findById(Long id);
 
+    ResponseResult<List<PersonFitness>> findList();
 
     PersonFitnessRsp getByPo(PersonFitness po);
+
+
 }

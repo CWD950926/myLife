@@ -8,7 +8,7 @@ import com.result.EPage;
 import com.result.ResponseResult;
 import com.module.${cfg.module}.dto.${entity?lower_case}.*;
 import org.springframework.beans.factory.annotation.Autowired;
-
+import java.util.List;
 
 /**
  * ${table.comment!} http api 入口
@@ -68,5 +68,12 @@ class ${table.controllerName}<#if superControllerClass??>:${superControllerClass
          return ${(table.serviceName?substring(1))?uncap_first}.findById(id);
     }
 
+
+
+    @ApiOperation(value = "查询列表")
+    @GetMapping("/m/findList")
+    public ResponseResult<List<${entity}>> findList(@RequestHeader(name = "userId", required = false) Long userId) {
+        return ${(table.serviceName?substring(1))?uncap_first}.findList();
+    }
 }
 </#if>

@@ -4,19 +4,20 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.time.LocalDate;
 import java.io.Serializable;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
 /**
-*
-* 个人资产
-* @author generator
-* @since 2023-01-30
-*/
+ * 个人资产
+ *
+ * @author generator
+ * @since 2023-01-30
+ */
 @Data
-@ApiModel(value="PersonAssets新增对象", description="个人资产")
+@ApiModel(value = "PersonAssets新增对象", description = "个人资产")
 public class AddPersonAssetsReq implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -47,6 +48,19 @@ public class AddPersonAssetsReq implements Serializable {
 
     @ApiModelProperty(value = "借款描述")
     private String borrowDesc;
+
+
+    @ApiModelProperty(value = "负债")
+    private BigDecimal liability;
+
+    @ApiModelProperty(value = "负债描述")
+    private String liabilityDesc;
+
+    @ApiModelProperty(value = "东方财富")
+    private BigDecimal eastMoney;
+
+    @ApiModelProperty(value = "中信证券")
+    private BigDecimal citics;
 
 
 }

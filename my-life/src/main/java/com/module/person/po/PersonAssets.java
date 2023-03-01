@@ -12,7 +12,7 @@ import lombok.Data;
 /**
  * 个人资产
  * @author generator
- * @since 2023-01-30
+ * @since 2023-01-31
  */
 @Data
 @ApiModel(value="PersonAssets对象", description="个人资产")
@@ -58,6 +58,15 @@ public class PersonAssets implements Serializable {
 
     @ApiModelProperty(value = "负债描述")
     private String liabilityDesc;
+
+    @ApiModelProperty(value = "东方财富")
+    private BigDecimal eastMoney;
+
+    @ApiModelProperty(value = "中信证券")
+    private BigDecimal citics;
+
+    @ApiModelProperty(value = "存款总和（不含负债）")
+    private BigDecimal total;
 
 
 }

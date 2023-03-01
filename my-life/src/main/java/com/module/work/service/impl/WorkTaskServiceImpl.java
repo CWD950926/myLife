@@ -31,7 +31,7 @@ import java.util.List;
 public class WorkTaskServiceImpl extends ServiceImpl<WorkTaskMapper, WorkTask> implements IWorkTaskService {
 
     @Override
-    public ResponseResult add( Long userId, AddWorkTaskReq req) {
+    public ResponseResult add(Long userId, AddWorkTaskReq req) {
         Date currentDate = DateUtil.getCurrentDate();
         if (CollectionUtils.isEmpty(req.getVersions())) {
             return ResponseResult.buildFail("未输入版本");
@@ -55,7 +55,7 @@ public class WorkTaskServiceImpl extends ServiceImpl<WorkTaskMapper, WorkTask> i
 
 
     @Override
-    public ResponseResult delete( Long id) {
+    public ResponseResult delete(Long id) {
         WorkTask po = baseMapper.selectById(id);
         if (po == null) {
             return ResponseResult.buildFail("数据不存在");
@@ -66,7 +66,7 @@ public class WorkTaskServiceImpl extends ServiceImpl<WorkTaskMapper, WorkTask> i
 
 
     @Override
-    public ResponseResult updateData( Long userId, UpdateWorkTaskReq req) {
+    public ResponseResult updateData(Long userId, UpdateWorkTaskReq req) {
         WorkTask po = baseMapper.selectById(req.getId());
         if (po == null) {
             return ResponseResult.buildFail("数据不存在");
@@ -83,7 +83,7 @@ public class WorkTaskServiceImpl extends ServiceImpl<WorkTaskMapper, WorkTask> i
 
 
     @Override
-    public ResponseResult<WorkTaskRsp> findById( Long id) {
+    public ResponseResult<WorkTaskRsp> findById(Long id) {
         WorkTask po = baseMapper.selectById(id);
         WorkTaskRsp rsp = getByPo(po);
         return ResponseResult.buildSuccess(rsp);
@@ -92,7 +92,14 @@ public class WorkTaskServiceImpl extends ServiceImpl<WorkTaskMapper, WorkTask> i
     @Override
     public ResponseResult<List<WorkTask>> findList() {
         LambdaQueryWrapper<WorkTask> queryWrapper = new LambdaQueryWrapper<>();
+        //获取当月时间
+        Date firstDay = DateUtil.getFirstDay(new Date());
+        Date firstDayBegin = DateUtil.getDayBegin(firstDay);
+        queryWrapper.ge(WorkTask::getTime, firstDayBegin);
+
         queryWrapper.orderByAsc(WorkTask::getPriority).orderByAsc(WorkTask::getVersion);
+
+
         return ResponseResult.buildSuccess(baseMapper.selectList(queryWrapper));
     }
 

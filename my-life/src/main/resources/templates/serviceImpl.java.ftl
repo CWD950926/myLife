@@ -92,7 +92,12 @@ public class ${table.serviceImplName} extends ${superServiceImplClass}<${table.m
         return ResponseResult.buildSuccess(rsp);
     }
 
-
+    @Override
+    public ResponseResult<List<${entity}>> findList() {
+        LambdaQueryWrapper<${entity}> queryWrapper = new LambdaQueryWrapper<>();
+            queryWrapper.orderByDesc(${entity}::getTime);
+            return ResponseResult.buildSuccess(baseMapper.selectList(queryWrapper));
+            }
 
 
     @Override

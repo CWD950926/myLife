@@ -6,7 +6,7 @@ import com.result.EPage;
 import com.module.${cfg.module}.dto.${entity?lower_case}.*;
 import com.result.ResponseResult;
 
-
+import java.util.List;
 
 /**
  * ${table.comment!} 服务类
@@ -52,7 +52,10 @@ public interface ${table.serviceName} extends ${superServiceClass}<${entity}> {
      */
     ResponseResult<${entity}Rsp> findById(Long id);
 
+    ResponseResult<List<${entity}>> findList();
 
     ${entity}Rsp getByPo(${entity} po);
+
+
 }
 </#if>

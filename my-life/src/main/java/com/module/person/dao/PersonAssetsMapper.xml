@@ -17,11 +17,14 @@
                     <result column="created_time" property="createdTime"/>
                     <result column="liability" property="liability"/>
                     <result column="liability_desc" property="liabilityDesc"/>
+                    <result column="east_money" property="eastMoney"/>
+                    <result column="citics" property="citics"/>
+                    <result column="total" property="total"/>
         </resultMap>
 
         <!-- 通用查询结果列 -->
         <sql id="Base_Column_List">
-            id, time, wx, alipay, construction, industrial_and_commercial, merchants, china, borrow, borrow_desc, created_time, liability, liability_desc
+            id, time, wx, alipay, construction, industrial_and_commercial, merchants, china, borrow, borrow_desc, created_time, liability, liability_desc, east_money, citics, total
         </sql>
 
 </mapper>

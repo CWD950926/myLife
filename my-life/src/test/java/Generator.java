@@ -29,7 +29,7 @@ public class Generator {
         String tables = "person_fitness";
 
 
-        boolean isGenAll = false;//true:dto、controller、service、mapper层也生成；false:只生成po和xml
+        boolean isGenAll = true;//true:dto、controller、service、mapper层也生成；false:只生成po和xml
 
         // 代码生成器
         AutoGenerator mpg = new AutoGenerator();

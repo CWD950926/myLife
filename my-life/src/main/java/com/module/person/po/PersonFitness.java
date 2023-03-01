@@ -11,7 +11,7 @@ import lombok.Data;
 /**
  * 健身计划
  * @author generator
- * @since 2023-01-30
+ * @since 2023-01-31
  */
 @Data
 @ApiModel(value="PersonFitness对象", description="健身计划")
@@ -39,6 +39,9 @@ public class PersonFitness implements Serializable {
 
     @ApiModelProperty(value = "体重")
     private BigDecimal weight;
+
+    @ApiModelProperty(value = "创建时间")
+    private Date createdTime;
 
 
 }

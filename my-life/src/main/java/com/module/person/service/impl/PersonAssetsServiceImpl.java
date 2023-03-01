@@ -1,17 +1,13 @@
 package com.module.person.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.module.person.dao.PersonAssetsMapper;
 import com.module.person.dto.personassets.AddPersonAssetsReq;
-import com.module.person.dto.personassets.PersonAssetsReq;
 import com.module.person.dto.personassets.PersonAssetsRsp;
 import com.module.person.dto.personassets.UpdatePersonAssetsReq;
 import com.module.person.po.PersonAssets;
 import com.module.person.service.IPersonAssetsService;
-import com.result.EPage;
 import com.result.ResponseResult;
 import com.util.DateUtil;
 import com.util.idmaker.IdUtil;
@@ -19,7 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -35,12 +31,19 @@ import java.util.List;
 public class PersonAssetsServiceImpl extends ServiceImpl<PersonAssetsMapper, PersonAssets> implements IPersonAssetsService {
 
     @Override
-    public ResponseResult<PersonAssets> add( Long userId, AddPersonAssetsReq req){
+    public ResponseResult<PersonAssets> add(Long userId, AddPersonAssetsReq req) {
         Date currentDate = DateUtil.getCurrentDate();
         PersonAssets po = new PersonAssets();
-        BeanUtils.copyProperties( req,po);
+        BeanUtils.copyProperties(req, po);
         po.setId(IdUtil.genId());
         po.setCreatedTime(currentDate);
+
+        //计算总和
+        BigDecimal total = req.getWx().add(req.getAlipay()).add(req.getConstruction())
+                .add(req.getIndustrialAndCommercial()).add(req.getMerchants())
+                .add(req.getChina()).add(req.getEastMoney()).add(req.getCitics());
+        po.setTotal(total);
+
         int effectRow = baseMapper.insert(po);
         if (effectRow > 0) {
             return ResponseResult.buildSuccess(po);
@@ -51,7 +54,7 @@ public class PersonAssetsServiceImpl extends ServiceImpl<PersonAssetsMapper, Per
 
 
     @Override
-    public ResponseResult delete( Long id) {
+    public ResponseResult delete(Long id) {
         PersonAssets po = baseMapper.selectById(id);
         if (po == null) {
             return ResponseResult.buildFail("数据不存在");
@@ -62,7 +65,7 @@ public class PersonAssetsServiceImpl extends ServiceImpl<PersonAssetsMapper, Per
 
 
     @Override
-    public ResponseResult updateData(Long userId, UpdatePersonAssetsReq req){
+    public ResponseResult updateData(Long userId, UpdatePersonAssetsReq req) {
         PersonAssets po = baseMapper.selectById(req.getId());
         if (po == null) {
             return ResponseResult.buildFail("数据不存在");
@@ -78,10 +81,8 @@ public class PersonAssetsServiceImpl extends ServiceImpl<PersonAssetsMapper, Per
     }
 
 
-
-
     @Override
-    public ResponseResult<PersonAssetsRsp> findById(Long id){
+    public ResponseResult<PersonAssetsRsp> findById(Long id) {
         PersonAssets po = baseMapper.selectById(id);
         PersonAssetsRsp rsp = getByPo(po);
         return ResponseResult.buildSuccess(rsp);

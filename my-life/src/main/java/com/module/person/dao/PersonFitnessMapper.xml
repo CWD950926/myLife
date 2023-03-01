@@ -11,11 +11,12 @@
                     <result column="dinner" property="dinner"/>
                     <result column="exercise" property="exercise"/>
                     <result column="weight" property="weight"/>
+                    <result column="created_time" property="createdTime"/>
         </resultMap>
 
         <!-- 通用查询结果列 -->
         <sql id="Base_Column_List">
-            id, time, lunch, breakfast, dinner, exercise, weight
+            id, time, lunch, breakfast, dinner, exercise, weight, created_time
         </sql>
 
 </mapper>
